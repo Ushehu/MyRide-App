@@ -1,24 +1,47 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { useEffect } from "react";
+import { Stack, SplashScreen } from "expo-router";
+import { useFonts } from "expo-font";
+import "./globals.css"
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { ClerkProvider } from '@clerk/clerk-expo';
+import { tokenCache } from '@clerk/clerk-expo/token-cache'
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+// Prevent the splash screen from auto-hiding
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [fontsLoaded] = useFonts({
+    "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
+    "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
+    "Jakarta-ExtraLight": require("../assets/fonts/PlusJakartaSans-ExtraLight.ttf"),
+    "Jakarta-Light": require("../assets/fonts/PlusJakartaSans-Light.ttf"),
+    "Jakarta-Medium": require("../assets/fonts/PlusJakartaSans-Medium.ttf"),
+     Jakarta: require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
+    "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
+  });
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+  useEffect(() => {
+    if (fontsLoaded) {
+      // Hide splash screen once fonts are loaded
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  // Keep splash screen visible while loading
+  if (!fontsLoaded) {
+    return null;
+  }
+ return (
+     <ClerkProvider tokenCache={tokenCache}>
+       
+         <Stack>
+           <Stack.Screen name="index" options={{ headerShown: false }} />
+           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+           <Stack.Screen name="(root)" options={{ headerShown: false }} />
+           
+         </Stack>
+       
+     </ClerkProvider>
+   );
 }
+
