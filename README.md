@@ -416,7 +416,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Umar Faruk Shehu**
 - GitHub: [@Ushehu](https://github.com/Ushehu)
 - Email: ushehu132@gmail.com
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
 
 ## 🙏 Acknowledgments
 
