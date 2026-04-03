@@ -430,7 +430,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For support:
 1. Check [Issues](https://github.com/yourusername/myride/issues)
 2. Create new issue with details
-3. Email: ushehu132@gmail.com
 
 ## 🗺️ Roadmap
 
